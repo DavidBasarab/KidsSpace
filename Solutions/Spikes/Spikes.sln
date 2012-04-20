@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstGameByExample", "..\..\Projects\Spikes\FirstGameByExample\FirstGameByExample\FirstGameByExample.csproj", "{5414E1EC-02AE-4D63-8566-849FD8635073}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "FirstGameByExampleContent", "..\..\Projects\Spikes\FirstGameByExample\FirstGameByExampleContent\FirstGameByExampleContent.contentproj", "{763DF397-AC7C-4517-9CBE-7ED7111A6783}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Game", "..\..\Projects\Libraries\Common.Game\Common.Game.csproj", "{C1106072-998F-452A-BA13-D9F33A78AAAC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5414E1EC-02AE-4D63-8566-849FD8635073}.Debug|x86.ActiveCfg = Debug|x86
+		{5414E1EC-02AE-4D63-8566-849FD8635073}.Debug|x86.Build.0 = Debug|x86
+		{5414E1EC-02AE-4D63-8566-849FD8635073}.Release|x86.ActiveCfg = Release|x86
+		{5414E1EC-02AE-4D63-8566-849FD8635073}.Release|x86.Build.0 = Release|x86
+		{763DF397-AC7C-4517-9CBE-7ED7111A6783}.Debug|x86.ActiveCfg = Debug|x86
+		{763DF397-AC7C-4517-9CBE-7ED7111A6783}.Release|x86.ActiveCfg = Release|x86
+		{C1106072-998F-452A-BA13-D9F33A78AAAC}.Debug|x86.ActiveCfg = Debug|x86
+		{C1106072-998F-452A-BA13-D9F33A78AAAC}.Debug|x86.Build.0 = Debug|x86
+		{C1106072-998F-452A-BA13-D9F33A78AAAC}.Release|x86.ActiveCfg = Release|x86
+		{C1106072-998F-452A-BA13-D9F33A78AAAC}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
