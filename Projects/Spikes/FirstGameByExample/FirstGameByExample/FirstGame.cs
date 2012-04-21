@@ -59,6 +59,8 @@ namespace FirstGameByExample
             get { return _colors; }
         }
 
+        public float ImageScale { get; set; }
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Gray);
@@ -77,6 +79,8 @@ namespace FirstGameByExample
             base.Initialize();
 
             IsMouseVisible = true;
+
+            ImageScale = 1.0f;
         }
 
         protected override void LoadContent()
@@ -91,8 +95,6 @@ namespace FirstGameByExample
             SquareTexture.Dispose();
         }
 
-        public float ImageScale { get; set; }
-
         protected override void Update(GameTime gameTime)
         {
             if (WasBackPressed) Exit();
@@ -101,7 +103,7 @@ namespace FirstGameByExample
 
             if (TimeRemaining.IsEqualTo(0.0f))
             {
-                _currentSquare = new Rectangle(_random.Next(0, Width - 25), _random.Next(Height - 25), 25, 25);
+                _currentSquare = new Rectangle(GetXPostion(), GetYPostion(), GetWidth(), GetHeight());
 
                 TimeRemaining = TimePerSquare;
             }
@@ -114,16 +116,36 @@ namespace FirstGameByExample
                 TimeRemaining = 0;
             }
 
-            ImageScale.Clamp(0.625f, 1.00f);
-            
+            ImageScale = ImageScale.Clamp(0.4f, 1.00f);
+
             TimeRemaining = MathHelper.Max(0, TimeRemaining - (float)gameTime.ElapsedGameTime.TotalSeconds);
 
-            Window.Title = string.Format("Score: {0}", PlayerScore);
+            Window.Title = string.Format("Score: {0} | ImageScale: {1}", PlayerScore, ImageScale);
         }
 
         private void CreateNewSpriteBachToDrawTextures()
         {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
+        }
+
+        private int GetHeight()
+        {
+            return (int)(25 * ImageScale);
+        }
+
+        private int GetWidth()
+        {
+            return (int)(25 * ImageScale);
+        }
+
+        private int GetXPostion()
+        {
+            return _random.Next(0, Width - 25);
+        }
+
+        private int GetYPostion()
+        {
+            return _random.Next(Height - 25);
         }
     }
 }
