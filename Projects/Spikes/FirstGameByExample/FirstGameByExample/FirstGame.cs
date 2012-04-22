@@ -1,16 +1,13 @@
 using System;
+using Common.Game;
 using Common.Game.Calculations;
-using Common.Game.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace FirstGameByExample
 {
-    /// <summary>
-    ///     This is the main type for your game
-    /// </summary>
-    public class FirstGame : Game
+    public class FirstGame : BaseGame
     {
         private const float TimePerSquare = 0.75f;
 
@@ -24,23 +21,9 @@ namespace FirstGameByExample
 
         private Rectangle _currentSquare;
 
-        public FirstGame()
-        {
-            Graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-        }
-
         private int PlayerScore { get; set; }
 
-        private GraphicsDeviceManager Graphics { get; set; }
-
-        private SpriteBatch SpriteBatch { get; set; }
         private Texture2D SquareTexture { get; set; }
-
-        private CurrentMouseState MouseState
-        {
-            get { return CurrentMouseState.MouseState; }
-        }
 
         private int Height
         {
@@ -121,11 +104,6 @@ namespace FirstGameByExample
             TimeRemaining = MathHelper.Max(0, TimeRemaining - (float)gameTime.ElapsedGameTime.TotalSeconds);
 
             Window.Title = string.Format("Score: {0} | ImageScale: {1}", PlayerScore, ImageScale);
-        }
-
-        private void CreateNewSpriteBachToDrawTextures()
-        {
-            SpriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
         private int GetHeight()

@@ -88,8 +88,9 @@
       <Name>Common.Game</Name>
     </ProjectReference>
     <ProjectReference Include="..\FirstGameByExampleContent\FirstGameByExampleContent.contentproj">
-      <Name>FirstGameByExampleContent</Name>
+      <Name>FirstGameByExampleContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{763DF397-AC7C-4517-9CBE-7ED7111A6783}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
