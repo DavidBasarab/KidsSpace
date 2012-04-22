@@ -57,33 +57,8 @@ namespace FirstGameByExample
             base.Draw(gameTime);
         }
 
-        protected override void Initialize()
+        protected override void GameUpdateLogic(GameTime gameTime)
         {
-            base.Initialize();
-
-            IsMouseVisible = true;
-
-            ImageScale = 1.0f;
-        }
-
-        protected override void LoadContent()
-        {
-            CreateNewSpriteBachToDrawTextures();
-
-            SquareTexture = Content.Load<Texture2D>("SQUARE");
-        }
-
-        protected override void UnloadContent()
-        {
-            SquareTexture.Dispose();
-        }
-
-        protected override void Update(GameTime gameTime)
-        {
-            if (WasBackPressed) Exit();
-
-            base.Update(gameTime);
-
             if (TimeRemaining.IsEqualTo(0.0f))
             {
                 _currentSquare = new Rectangle(GetXPostion(), GetYPostion(), GetWidth(), GetHeight());
@@ -104,6 +79,27 @@ namespace FirstGameByExample
             TimeRemaining = MathHelper.Max(0, TimeRemaining - (float)gameTime.ElapsedGameTime.TotalSeconds);
 
             Window.Title = string.Format("Score: {0} | ImageScale: {1}", PlayerScore, ImageScale);
+        }
+
+        protected override void Initialize()
+        {
+            base.Initialize();
+
+            IsMouseVisible = true;
+
+            ImageScale = 1.0f;
+        }
+
+        protected override void LoadContent()
+        {
+            CreateNewSpriteBachToDrawTextures();
+
+            SquareTexture = Content.Load<Texture2D>("SQUARE");
+        }
+
+        protected override void UnloadContent()
+        {
+            SquareTexture.Dispose();
         }
 
         private int GetHeight()

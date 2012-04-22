@@ -6,9 +6,9 @@ namespace Common.Game
 {
     public abstract class BaseGame : Microsoft.Xna.Framework.Game
     {
-        protected static CurrentGamePadState PlayerOne
+        protected static GamePadStateManager PlayerOne
         {
-            get { return CurrentGamePadState.PlayerOne; }
+            get { return GamePadStateManager.PlayerOne; }
         }
 
         protected BaseGame()
@@ -25,15 +25,17 @@ namespace Common.Game
         protected GraphicsDeviceManager Graphics { get; set; }
         protected SpriteBatch SpriteBatch { get; set; }
 
-        protected CurrentMouseState MouseState
+        protected MouseStateManager MouseState
         {
-            get { return CurrentMouseState.MouseState; }
+            get { return MouseStateManager.MouseState; }
         }
 
-        protected override void LoadContent()
+        protected KeyboardStateManager KeyboardState
         {
-            CreateNewSpriteBachToDrawTextures();
+            get { return KeyboardStateManager.KeyboardState; }
         }
+
+        protected abstract void GameUpdateLogic(GameTime gameTime);
 
         protected override void Initialize()
         {
@@ -44,6 +46,22 @@ namespace Common.Game
             base.Initialize();
         }
 
+        protected override void LoadContent()
+        {
+            CreateNewSpriteBachToDrawTextures();
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            CaptureState();
+
+            if (PlayerOne.IsBackButtonPressed) Exit();
+
+            GameUpdateLogic(gameTime);
+
+            base.Update(gameTime);
+        }
+
         protected void CreateNewSpriteBachToDrawTextures()
         {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
@@ -52,6 +70,13 @@ namespace Common.Game
         protected Model GetModel(string modelName)
         {
             return Content.Load<Model>(modelName);
+        }
+
+        private void CaptureState()
+        {
+            PlayerOne.Capture();
+            MouseState.Capture();
+            KeyboardState.Capture();
         }
     }
 }

@@ -36,6 +36,11 @@ namespace Sample1
             base.Draw(gameTime);
         }
 
+        protected override void GameUpdateLogic(GameTime gameTime)
+        {
+            Camera.Update();
+        }
+
         protected override void LoadContent()
         {
             base.LoadContent();
@@ -56,19 +61,10 @@ namespace Sample1
 
             Models.Add(model);
 
-            Camera = new TargetCamera(GraphicsDevice, new Vector3(300, 300, -1800), Vector3.Zero);
+            Camera = new FreeCamera(GraphicsDevice, new Vector3(1000, 0, -2000), MathHelper.ToRadians(153), MathHelper.ToRadians(5));
         }
 
         protected override void UnloadContent() {}
-
-        protected override void Update(GameTime gameTime)
-        {
-            if (PlayerOne.IsBackButtonPressed) Exit();
-
-            Camera.Update();
-
-            base.Update(gameTime);
-        }
 
         private void LoadShip()
         {

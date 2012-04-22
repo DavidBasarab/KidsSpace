@@ -11,9 +11,9 @@ namespace FloodControl
         private Texture2D PlayingPieces { get; set; }
         private Texture2D TitleScreen { get; set; }
 
-        private static CurrentGamePadState Player
+        private static GamePadStateManager Player
         {
-            get { return CurrentGamePadState.PlayerOne; }
+            get { return GamePadStateManager.PlayerOne; }
         }
 
         protected override void Draw(GameTime gameTime)
@@ -21,6 +21,11 @@ namespace FloodControl
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             base.Draw(gameTime);
+        }
+
+        protected override void GameUpdateLogic(GameTime gameTime)
+        {
+            
         }
 
         protected override void Initialize()

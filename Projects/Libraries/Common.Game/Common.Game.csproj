@@ -60,8 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseGame.cs" />
-    <Compile Include="Controls\CurrentGamePadState.cs" />
-    <Compile Include="Controls\CurrentMouseState.cs" />
+    <Compile Include="Controls\BaseStateManager.cs" />
+    <Compile Include="Controls\GamePadStateManager.cs" />
+    <Compile Include="Controls\KeyboardStateManager.cs" />
+    <Compile Include="Controls\MouseStateManager.cs" />
     <Compile Include="Calculations\FloatExtensions.cs" />
     <Compile Include="Graphics\BaseGraphic.cs" />
     <Compile Include="Graphics\Cameras\FreeCamera.cs" />
