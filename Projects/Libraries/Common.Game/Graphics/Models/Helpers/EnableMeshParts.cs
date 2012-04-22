@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Common.Game.Graphics.Models.Helpers
 {
-    internal class EnableMeshParts : BaseModelHelper
+    internal class EnableMeshParts : BaseGraphic
     {
         public static void Enable(Matrix view, Matrix projection, Matrix localWorld, ModelMeshPartCollection meshes)
         {

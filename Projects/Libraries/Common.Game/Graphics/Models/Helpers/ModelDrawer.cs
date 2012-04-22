@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Common.Game.Graphics.Models.Helpers
 {
-    internal class ModelDrawer : BaseModelHelper
+    internal class ModelDrawer : BaseGraphic
     {
         public static void Draw(GenericModel model, Matrix view, Matrix projection)
         {
