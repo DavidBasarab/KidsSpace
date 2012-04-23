@@ -25,6 +25,16 @@ namespace Common.Game.Controls
             get { return CurrentState.LeftButton == ButtonState.Pressed; }
         }
 
+        public float DeltaX
+        {
+            get { return LastState.X - (float)CurrentState.X; }
+        }
+
+        public float DeltaY
+        {
+            get { return LastState.Y - (float)CurrentState.Y; }
+        }
+
         public override void Capture()
         {
             LastState = CurrentState;

@@ -21,5 +21,42 @@ namespace Common.Game.Controls
             LastState = CurrentState;
             CurrentState = Keyboard.GetState();
         }
+
+        public bool IsWDown
+        {
+            get
+            {
+                return IsKeyDown(Keys.W);
+            }
+        }
+
+        public bool IsSDown
+        {
+            get
+            {
+                return IsKeyDown(Keys.S);
+            }
+        }
+
+        public bool IsADown
+        {
+            get
+            {
+                return IsKeyDown(Keys.A);
+            }
+        }
+
+        public bool IsDDown
+        {
+            get
+            {
+                return IsKeyDown(Keys.D);
+            }
+        }
+
+        public bool IsKeyDown(Keys key)
+        {
+            return CurrentState.IsKeyDown(key);
+        }
     }
 }

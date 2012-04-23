@@ -8,14 +8,42 @@ namespace Common.Game.Graphics.Cameras
         protected Camera(GraphicsDevice graphicsDevice)
         {
             GraphicsDevice = graphicsDevice;
-            GeneratePerspectiveProjectionMatrix(MathHelper.PiOver4);
+            GeneratePerspectiveProjectionMatrix();
         }
 
         protected GraphicsDevice GraphicsDevice { get; set; }
 
+        public BoundingFrustum Frustum { get; private set; }
+
         public abstract void Update();
 
-        private void GeneratePerspectiveProjectionMatrix(float fieldOfView)
+        public bool IsInView(BoundingSphere sphere)
+        {
+            return Frustum.Contains(sphere) != ContainmentType.Disjoint;
+        }
+
+        public bool IsInView(BoundingBox box)
+        {
+            return Frustum.Contains(box) != ContainmentType.Disjoint;
+        }
+
+        protected override void OnProjectionChange()
+        {
+            GenerateFrustum();
+        }
+
+        protected override void OnViewChange()
+        {
+            GenerateFrustum();
+        }
+
+        private void GenerateFrustum()
+        {
+            var viewProjection = View * Projection;
+            Frustum = new BoundingFrustum(viewProjection);
+        }
+
+        private void GeneratePerspectiveProjectionMatrix()
         {
             var presentationParameters = GraphicsDevice.PresentationParameters;
 

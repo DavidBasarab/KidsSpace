@@ -51,11 +51,16 @@ namespace Common.Game
             CreateNewSpriteBachToDrawTextures();
         }
 
+        protected virtual bool ShouldGameExit()
+        {
+            return PlayerOne.IsBackButtonPressed;
+        }
+
         protected override void Update(GameTime gameTime)
         {
             CaptureState();
 
-            if (PlayerOne.IsBackButtonPressed) Exit();
+            if (ShouldGameExit()) Exit();
 
             GameUpdateLogic(gameTime);
 

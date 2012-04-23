@@ -65,9 +65,12 @@
     <Compile Include="Controls\KeyboardStateManager.cs" />
     <Compile Include="Controls\MouseStateManager.cs" />
     <Compile Include="Calculations\FloatExtensions.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Graphics\BaseGraphic.cs" />
     <Compile Include="Graphics\Cameras\FreeCamera.cs" />
     <Compile Include="Graphics\Cameras\TargetCamera.cs" />
+    <Compile Include="Graphics\Models\Helpers\BoundingSphereBuilder.cs" />
+    <Compile Include="Graphics\Models\Helpers\BoundingSphereTransformer.cs" />
     <Compile Include="Graphics\Models\Helpers\EnableMeshParts.cs" />
     <Compile Include="Graphics\Models\Extensions.cs" />
     <Compile Include="Graphics\Models\GenericModel.cs" />
