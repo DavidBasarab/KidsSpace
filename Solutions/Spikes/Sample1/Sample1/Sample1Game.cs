@@ -20,7 +20,7 @@ namespace Sample1
             get { return _models ?? (_models = new List<GenericModel>()); }
         }
 
-        public FreeCamera Camera { get; set; }
+        public ArcBallCamera Camera { get; set; }
 
         protected override void Draw(GameTime gameTime)
         {
@@ -67,7 +67,10 @@ namespace Sample1
 
             Models.Add(model);
 
-            Camera = new FreeCamera(GraphicsDevice, new Vector3(1000, 0, -2000), MathHelper.ToRadians(153), MathHelper.ToRadians(5));
+            // Free Camera
+            //Camera = new FreeCamera(GraphicsDevice, new Vector3(1000, 0, -2000), MathHelper.ToRadians(153), MathHelper.ToRadians(5));
+
+            Camera = new ArcBallCamera(Vector3.Zero, 0, 0, 0, MathHelper.PiOver2, 1200, 1000, 2000, GraphicsDevice);
         }
 
         protected override bool ShouldGameExit()
@@ -90,19 +93,22 @@ namespace Sample1
         {
             Camera.Rotate(MouseState.DeltaX * .01f, MouseState.DeltaY * .01f);
 
-            var translation = Vector3.Zero;
+            // Calculate scroll whell movement
+            Camera.Move(MouseState.ScrollDelta);
+
+            //var translation = Vector3.Zero;
 
             // Determine in which direction to move the camera
-            if (KeyboardState.IsWDown) translation += Vector3.Forward;
-            if (KeyboardState.IsSDown) translation += Vector3.Backward;
-            if (KeyboardState.IsADown) translation += Vector3.Left;
-            if (KeyboardState.IsDDown) translation += Vector3.Right;
+            //if (KeyboardState.IsWDown) translation += Vector3.Forward;
+            //if (KeyboardState.IsSDown) translation += Vector3.Backward;
+            //if (KeyboardState.IsADown) translation += Vector3.Left;
+            //if (KeyboardState.IsDDown) translation += Vector3.Right;
 
             // Move 3 units per millisecond, independent of frame rate
-            translation *= 3 * gameTime.GetTotalMilliseconds();
+            //translation *= 3 * gameTime.GetTotalMilliseconds();
 
             // Move the camera
-            Camera.Move(translation);
+            //Camera.Move(translation);
 
             // Update the camera
             Camera.Update();

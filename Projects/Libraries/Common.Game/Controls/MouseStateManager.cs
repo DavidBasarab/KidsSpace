@@ -35,6 +35,11 @@ namespace Common.Game.Controls
             get { return LastState.Y - (float)CurrentState.Y; }
         }
 
+        public float ScrollDelta
+        {
+            get { return (float)LastState.ScrollWheelValue - CurrentState.ScrollWheelValue; }
+        }
+
         public override void Capture()
         {
             LastState = CurrentState;
