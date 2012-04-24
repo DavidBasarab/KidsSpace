@@ -3,6 +3,7 @@ using System.Linq;
 using Common.Game;
 using Common.Game.Graphics.Cameras;
 using Common.Game.Graphics.Models;
+using Common.Game.Numbers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -69,8 +70,9 @@ namespace Sample1
 
             // Free Camera
             //Camera = new FreeCamera(GraphicsDevice, new Vector3(1000, 0, -2000), MathHelper.ToRadians(153), MathHelper.ToRadians(5));
+            //public ArcBallCamera(Vector3 Target, float RotationX, float RotationY, float MinRotationY, float MaxRotationY, float Distance, float MinDistance, float MaxDistance, GraphicsDevice graphicsDevice)
 
-            Camera = new ArcBallCamera(Vector3.Zero, 0, 0, 0, MathHelper.PiOver2, 1200, 1000, 2000, GraphicsDevice);
+            Camera = new ArcBallCamera(Vector3.Zero, 0, new ClampFloat(0, 0, MathHelper.PiOver2), new ClampFloat(1200, 1000, 2000), GraphicsDevice);
         }
 
         protected override bool ShouldGameExit()

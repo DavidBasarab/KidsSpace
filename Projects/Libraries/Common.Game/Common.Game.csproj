@@ -77,6 +77,7 @@
     <Compile Include="Graphics\Models\GenericModel.cs" />
     <Compile Include="Graphics\Models\Helpers\ModelDrawer.cs" />
     <Compile Include="Graphics\Cameras\Camera.cs" />
+    <Compile Include="Numbers\ClampFloat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

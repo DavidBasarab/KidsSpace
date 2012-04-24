@@ -1,46 +1,29 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Common.Game.Numbers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Common.Game.Graphics.Cameras
 {
     public class ArcBallCamera : Camera
     {
-        public ArcBallCamera(Vector3 target, float rotationX, float rotationY, float minRotationY, float maxRotationY, float distance, float minDistance, float maxDistance,
-                             GraphicsDevice graphicsDevice)
+        public ArcBallCamera(Vector3 target, ClampFloat rotationX, ClampFloat rotationY, ClampFloat distance, GraphicsDevice graphicsDevice)
             : base(graphicsDevice)
         {
             Target = target;
-
-            MinRotationY = minRotationY;
-            MaxRotationY = maxRotationY;
-
-            // Locak the y axis rotation between the min and max values
-            RotationY = MathHelper.Clamp(rotationY, MinRotationY, MaxRotationY);
-
+            
+            RotationY = rotationY;
             RotationX = rotationX;
 
-            MinDistance = minDistance;
-            MaxDistance = maxDistance;
-
-            // Locak the distance between the min and max values
-            Distance = MathHelper.Clamp(distance, MinDistance, MaxDistance);
+            Distance = distance;
         }
 
         // Rotation around the two axes
-        public float RotationX { get; set; }
-        public float RotationY { get; set; }
-
-        // Y axis rotation limits (radians)
-        public float MinRotationY { get; set; }
-        public float MaxRotationY { get; set; }
-
+        public ClampFloat RotationX { get; set; }
+        public ClampFloat RotationY { get; set; }
+        
         // Distance between the target and camera
-        public float Distance { get; set; }
-
-        // Distance limits
-        public float MinDistance { get; set; }
-        public float MaxDistance { get; set; }
-
+        public ClampFloat Distance { get; set; }
+        
         // Calculated postion and specified target
         public Vector3 Position { get; set; }
         public Vector3 Target { get; set; }
@@ -66,16 +49,12 @@ namespace Common.Game.Graphics.Cameras
         public void Move(float distanceChange)
         {
             Distance += distanceChange;
-
-            Distance = MathHelper.Clamp(Distance, MinDistance, MaxDistance);
         }
 
         public void Rotate(float rotationXChange, float rotationYChange)
         {
             RotationX += rotationXChange;
             RotationY += -rotationYChange;
-
-            RotationY = MathHelper.Clamp(RotationY, MinRotationY, MaxRotationY);
         }
 
         public void Translate(Vector3 positionChange)
