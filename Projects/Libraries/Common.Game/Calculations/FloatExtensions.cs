@@ -15,6 +15,13 @@ namespace Common.Game.Calculations
             return MathHelper.Clamp(number, min, max);
         }
 
+        public static float Clamp(this float number, float? min, float? max)
+        {
+            if (min.HasValue && max.HasValue) return MathHelper.Clamp(number, min.Value, max.Value);
+
+            return number;
+        }
+
         public static bool IsEqualTo(this float value, float number)
         {
             return Math.Abs(value - number) < Precision;

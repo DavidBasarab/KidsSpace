@@ -12,7 +12,7 @@ namespace Common.Game.Numbers
         {
             var newValue = value1.Number + value2.Number;
 
-            return Clamp(value1, newValue);
+            return Clamp(newValue, value1.Min ?? value2.Min , value1.Max ?? value1.Max);
         }
 
         public static bool operator ==(float value1, ClampFloat value2)
@@ -49,14 +49,14 @@ namespace Common.Game.Numbers
         {
             var newValue = value1.Number - value2.Number;
 
-            return Clamp(value1, newValue);
+            return Clamp(newValue, value1.Min, value1.Max);
         }
 
-        private static ClampFloat Clamp(ClampFloat value1, float newValue)
+        private static ClampFloat Clamp(float newValue, float? min, float? max)
         {
-            if (value1.Min.HasValue && value1.Max.HasValue) return MathHelper.Clamp(newValue, value1.Min.Value, value1.Max.Value);
+            if (min.HasValue && max.HasValue) newValue = MathHelper.Clamp(newValue, min.Value, max.Value);
 
-            return newValue;
+            return new ClampFloat(newValue, min, max);
         }
 
         public ClampFloat(float number)
@@ -66,7 +66,7 @@ namespace Common.Game.Numbers
 
         public ClampFloat() {}
 
-        public ClampFloat(float number, float min, float max)
+        public ClampFloat(float number, float? min, float? max)
         {
             Number = number;
             Max = max;
