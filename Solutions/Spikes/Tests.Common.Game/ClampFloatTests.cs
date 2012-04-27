@@ -64,19 +64,6 @@ namespace Tests.Common.Game
         }
 
         [Test]
-        public void ManyAddsKeepTheNumberAtMax()
-        {
-            var number = new ClampFloat(0.0f, 0.0f, 12.0f);
-
-            for (int i = 0; i < 15; i++)
-            {
-                number += 1.0f;
-            }
-
-            Assert.That((float)number, Is.EqualTo(12.0f));
-        }
-
-        [Test]
         public void CanAdd2ClampFloats()
         {
             ClampFloat numberOne = 1.0f;
@@ -114,6 +101,16 @@ namespace Tests.Common.Game
         }
 
         [Test]
+        public void ManyAddsKeepTheNumberAtMax()
+        {
+            var number = new ClampFloat(0.0f, 0.0f, 12.0f);
+
+            for (var i = 0; i < 15; i++) number += 1.0f;
+
+            Assert.That((float)number, Is.EqualTo(12.0f));
+        }
+
+        [Test]
         public void SubtractionOperationWillNotGoOverMinValue()
         {
             ClampFloat number = 10.0f;
@@ -124,6 +121,16 @@ namespace Tests.Common.Game
             number -= 10.10f;
 
             Assert.That((float)number, Is.EqualTo(5.0f));
+        }
+
+        [Test]
+        public void WhenTheNumberIsSetItIsClamped()
+        {
+            var number = new ClampFloat(17, 5, 25);
+
+            number.Value = 32;
+
+            Assert.That(number.Value, Is.EqualTo(25));
         }
     }
 }

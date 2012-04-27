@@ -4,10 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Common.Game.Graphics.Cameras
 {
-    public class ArcBallCamera : Camera
+    public class ArcBallCamera : TargetCamera
     {
         public ArcBallCamera(Vector3 target, ClampFloat rotationX, ClampFloat rotationY, ClampFloat distance, GraphicsDevice graphicsDevice)
-            : base(graphicsDevice)
+            : base(graphicsDevice, target)
         {
             Target = target;
             
@@ -17,17 +17,11 @@ namespace Common.Game.Graphics.Cameras
             Distance = distance;
         }
 
-        // Rotation around the two axes
         public ClampFloat RotationX { get; set; }
         public ClampFloat RotationY { get; set; }
         
-        // Distance between the target and camera
         public ClampFloat Distance { get; set; }
         
-        // Calculated postion and specified target
-        public Vector3 Position { get; set; }
-        public Vector3 Target { get; set; }
-
         public override void Update()
         {
             // Calculate rotation matrix from rotation values

@@ -68,6 +68,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Graphics\BaseGraphic.cs" />
     <Compile Include="Graphics\Cameras\ArcBallCamera.cs" />
+    <Compile Include="Graphics\Cameras\ChaseCamera.cs" />
     <Compile Include="Graphics\Cameras\FreeCamera.cs" />
     <Compile Include="Graphics\Cameras\TargetCamera.cs" />
     <Compile Include="Graphics\Models\Helpers\BoundingSphereBuilder.cs" />

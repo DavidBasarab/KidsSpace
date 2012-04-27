@@ -16,42 +16,35 @@ namespace Common.Game.Controls
         public KeyboardState LastState { get; set; }
         public KeyboardState CurrentState { get; set; }
 
-        public override void Capture()
-        {
-            LastState = CurrentState;
-            CurrentState = Keyboard.GetState();
-        }
-
         public bool IsWDown
         {
-            get
-            {
-                return IsKeyDown(Keys.W);
-            }
+            get { return IsKeyDown(Keys.W); }
         }
 
         public bool IsSDown
         {
-            get
-            {
-                return IsKeyDown(Keys.S);
-            }
+            get { return IsKeyDown(Keys.S); }
         }
 
         public bool IsADown
         {
-            get
-            {
-                return IsKeyDown(Keys.A);
-            }
+            get { return IsKeyDown(Keys.A); }
         }
 
         public bool IsDDown
         {
-            get
-            {
-                return IsKeyDown(Keys.D);
-            }
+            get { return IsKeyDown(Keys.D); }
+        }
+
+        public bool IsSpaceDown
+        {
+            get { return IsKeyDown(Keys.Space); }
+        }
+
+        public override void Capture()
+        {
+            LastState = CurrentState;
+            CurrentState = Keyboard.GetState();
         }
 
         public bool IsKeyDown(Keys key)

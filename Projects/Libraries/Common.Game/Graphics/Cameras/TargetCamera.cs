@@ -12,6 +12,15 @@ namespace Common.Game.Graphics.Cameras
             Target = target;
         }
 
+        public TargetCamera(GraphicsDevice graphicsDevice, Vector3 target)
+            : base(graphicsDevice)
+        {
+            Target = target;
+        }
+
+        protected TargetCamera(GraphicsDevice graphicsDevice)
+            : base(graphicsDevice) {}
+
         public Vector3 Position { get; set; }
         public Vector3 Target { get; set; }
 

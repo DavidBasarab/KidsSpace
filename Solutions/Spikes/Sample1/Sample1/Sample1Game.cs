@@ -3,7 +3,6 @@ using System.Linq;
 using Common.Game;
 using Common.Game.Graphics.Cameras;
 using Common.Game.Graphics.Models;
-using Common.Game.Numbers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -21,7 +20,7 @@ namespace Sample1
             get { return _models ?? (_models = new List<GenericModel>()); }
         }
 
-        public ArcBallCamera Camera { get; set; }
+        public ChaseCamera Camera { get; set; }
 
         protected override void Draw(GameTime gameTime)
         {
@@ -45,6 +44,7 @@ namespace Sample1
 
         protected override void GameUpdateLogic(GameTime gameTime)
         {
+            UpdateModel(gameTime);
             UpdateCamera(gameTime);
         }
 
@@ -52,27 +52,10 @@ namespace Sample1
         {
             base.LoadContent();
 
-            //LoadShip();
-            //for (var y = 0; y < 3; y++)
-            //{
-            //    for (var x = 0; x < 3; x++)
-            //    {
-            //        var position = new Vector3(-600 + x * 600, -400 + y * 400, 0);
+            CreateModel(GetModel("ship"), new Vector3(0, 400, 0), Vector3.Zero, new Vector3(0.4f));
+            CreateModel(GetModel("ground"), Vector3.Zero, Vector3.Zero, Vector3.One);
 
-            //        var model = new GenericModel(GetModel("ship"), position, new Vector3(0, MathHelper.ToRadians(90) * (y * 3 + x), 0), new Vector3(0.25f), GraphicsDevice);
-
-            //        Models.Add(model);
-            //    }
-            //}
-            var model = new GenericModel(GetModel("ship"), Vector3.Zero, Vector3.Zero, new Vector3(0.6f), GraphicsDevice);
-
-            Models.Add(model);
-
-            // Free Camera
-            //Camera = new FreeCamera(GraphicsDevice, new Vector3(1000, 0, -2000), MathHelper.ToRadians(153), MathHelper.ToRadians(5));
-            //public ArcBallCamera(Vector3 Target, float RotationX, float RotationY, float MinRotationY, float MaxRotationY, float Distance, float MinDistance, float MaxDistance, GraphicsDevice graphicsDevice)
-
-            Camera = new ArcBallCamera(Vector3.Zero, 0, new ClampFloat(0, 0, MathHelper.PiOver2), new ClampFloat(1200, 1000, 2000), GraphicsDevice);
+            Camera = new ChaseCamera(new Vector3(0, 400, 1500), new Vector3(0, 200, 0), new Vector3(0, 0, 0), GraphicsDevice);
         }
 
         protected override bool ShouldGameExit()
@@ -82,38 +65,34 @@ namespace Sample1
 
         protected override void UnloadContent() {}
 
-        private void LoadShip()
+        private void CreateModel(Model model, Vector3 position, Vector3 rotation, Vector3 scale)
         {
-            Ship = GetModel("ship");
+            var genericModel = new GenericModel(model, position, rotation, scale, GraphicsDevice);
 
-            Transforms = new Matrix[Ship.Bones.Count];
-
-            Ship.CopyAbsoluteBoneTransformsTo(Transforms);
+            Models.Add(genericModel);
         }
 
-        private void UpdateCamera(GameTime gameTime)
+        private void UpdateCamera(GameTime gameTime) {}
+
+        private void UpdateModel(GameTime gameTime)
         {
-            Camera.Rotate(MouseState.DeltaX * .01f, MouseState.DeltaY * .01f);
+            var rotationChange = new Vector3(0, 0, 0);
 
-            // Calculate scroll whell movement
-            Camera.Move(MouseState.ScrollDelta);
+            // Determin which axes the ship should be rotated on, if any
+            if (KeyboardState.IsWDown) rotationChange += new Vector3(1, 0, 0);
+            if (KeyboardState.IsSDown) rotationChange += new Vector3(-1, 0, 0);
+            if (KeyboardState.IsADown) rotationChange += new Vector3(0, 1, 0);
+            if (KeyboardState.IsDDown) rotationChange += new Vector3(0, -1, 0);
 
-            //var translation = Vector3.Zero;
+            Models[0].Rotation += rotationChange * 0.025f;
 
-            // Determine in which direction to move the camera
-            //if (KeyboardState.IsWDown) translation += Vector3.Forward;
-            //if (KeyboardState.IsSDown) translation += Vector3.Backward;
-            //if (KeyboardState.IsADown) translation += Vector3.Left;
-            //if (KeyboardState.IsDDown) translation += Vector3.Right;
+            if (KeyboardState.IsSpaceDown)
+            {
+                return;
+            }
 
-            // Move 3 units per millisecond, independent of frame rate
-            //translation *= 3 * gameTime.GetTotalMilliseconds();
-
-            // Move the camera
-            //Camera.Move(translation);
-
-            // Update the camera
-            Camera.Update();
+            // Determine what direction to move in
+            Matrix rotation = Matrix.CreateFromYawPitchRoll(Models[0].Rotation.Y, Models)
         }
     }
 }

@@ -10,24 +10,24 @@ namespace Common.Game.Numbers
 
         public static ClampFloat operator +(ClampFloat value1, ClampFloat value2)
         {
-            var newValue = value1.Number + value2.Number;
+            var newValue = value1.Value + value2.Value;
 
-            return Clamp(newValue, value1.Min ?? value2.Min , value1.Max ?? value1.Max);
+            return Clamp(newValue, value1.Min ?? value2.Min, value1.Max ?? value1.Max);
         }
 
         public static bool operator ==(float value1, ClampFloat value2)
         {
-            return Math.Abs(value1 - value2.Number) < Tollerance;
+            return Math.Abs(value1 - value2.Value) < Tollerance;
         }
 
         public static bool operator ==(ClampFloat value1, float value2)
         {
-            return Math.Abs(value1.Number - value2) < Tollerance;
+            return Math.Abs(value1.Value - value2) < Tollerance;
         }
 
         public static implicit operator float(ClampFloat value)
         {
-            return value.Number;
+            return value.Value;
         }
 
         public static implicit operator ClampFloat(float value)
@@ -37,17 +37,17 @@ namespace Common.Game.Numbers
 
         public static bool operator !=(float value1, ClampFloat value2)
         {
-            return !(Math.Abs(value1 - value2.Number) < Tollerance);
+            return !(Math.Abs(value1 - value2.Value) < Tollerance);
         }
 
         public static bool operator !=(ClampFloat value1, float value2)
         {
-            return !(Math.Abs(value1.Number - value2) < Tollerance);
+            return !(Math.Abs(value1.Value - value2) < Tollerance);
         }
 
         public static ClampFloat operator -(ClampFloat value1, ClampFloat value2)
         {
-            var newValue = value1.Number - value2.Number;
+            var newValue = value1.Value - value2.Value;
 
             return Clamp(newValue, value1.Min, value1.Max);
         }
@@ -59,27 +59,32 @@ namespace Common.Game.Numbers
             return new ClampFloat(newValue, min, max);
         }
 
+        private float _value;
+
         public ClampFloat(float number)
         {
-            Number = number;
+            _value = number;
         }
 
         public ClampFloat() {}
 
         public ClampFloat(float number, float? min, float? max)
         {
-            Number = number;
             Max = max;
             Min = min;
 
-            Number = Number.Clamp(min, max);
+            _value = number.Clamp(min, max);
         }
 
         public float? Min { get; set; }
 
         public float? Max { get; set; }
 
-        private float Number { get; set; }
+        public float Value
+        {
+            get { return _value; }
+            set { _value = Clamp(value, Min, Max); }
+        }
 
         public override bool Equals(object obj)
         {
@@ -90,13 +95,13 @@ namespace Common.Game.Numbers
 
         public override int GetHashCode()
         {
-            return Number.GetHashCode();
+            return Value.GetHashCode();
         }
 
         public bool Equals(ClampFloat other)
         {
             if (ReferenceEquals(null, other)) return false;
-            return ReferenceEquals(this, other) || other.Number.Equals(Number);
+            return ReferenceEquals(this, other) || other.Value.Equals(Value);
         }
     }
 }
