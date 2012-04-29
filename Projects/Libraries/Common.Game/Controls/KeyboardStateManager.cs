@@ -41,6 +41,11 @@ namespace Common.Game.Controls
             get { return IsKeyDown(Keys.Space); }
         }
 
+        public bool IsSpaceNotDown
+        {
+            get { return !IsSpaceDown; }
+        }
+
         public override void Capture()
         {
             LastState = CurrentState;

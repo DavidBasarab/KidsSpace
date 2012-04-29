@@ -72,7 +72,12 @@ namespace Sample1
             Models.Add(genericModel);
         }
 
-        private void UpdateCamera(GameTime gameTime) {}
+        private void UpdateCamera(GameTime gameTime)
+        {
+            Camera.Move(Models[0].Position, Models[0].Rotation);
+
+            Camera.Update();
+        }
 
         private void UpdateModel(GameTime gameTime)
         {
@@ -86,13 +91,13 @@ namespace Sample1
 
             Models[0].Rotation += rotationChange * 0.025f;
 
-            if (KeyboardState.IsSpaceDown)
-            {
-                return;
-            }
+            if (KeyboardState.IsSpaceNotDown) return;
 
             // Determine what direction to move in
-            Matrix rotation = Matrix.CreateFromYawPitchRoll(Models[0].Rotation.Y, Models)
+            var rotation = Matrix.CreateFromYawPitchRoll(Models[0].Rotation.Y, Models[0].Rotation.X, Models[0].Rotation.Z);
+
+            // Move in the direction dictated by our rotation matrix
+            Models[0].Position += Vector3.Transform(Vector3.Forward, rotation) * gameTime.GetTotalMilliseconds() * 4;
         }
     }
 }
