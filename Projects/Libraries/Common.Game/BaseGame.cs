@@ -15,6 +15,8 @@ namespace Common.Game
         {
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            AdditionalConstructorWork();
         }
 
         protected virtual Color GraphicsClearColor
@@ -37,6 +39,13 @@ namespace Common.Game
 
         protected abstract void GameUpdateLogic(GameTime gameTime);
 
+        protected virtual void AdditionalConstructorWork() {}
+
+        protected virtual bool ShouldGameExit()
+        {
+            return PlayerOne.IsBackButtonPressed;
+        }
+
         protected override void Initialize()
         {
 #if DEBUG
@@ -49,11 +58,6 @@ namespace Common.Game
         protected override void LoadContent()
         {
             CreateNewSpriteBachToDrawTextures();
-        }
-
-        protected virtual bool ShouldGameExit()
-        {
-            return PlayerOne.IsBackButtonPressed;
         }
 
         protected override void Update(GameTime gameTime)
