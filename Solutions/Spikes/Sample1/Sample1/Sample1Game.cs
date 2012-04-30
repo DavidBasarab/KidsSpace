@@ -3,6 +3,7 @@ using System.Linq;
 using Common.Game;
 using Common.Game.Graphics.Cameras;
 using Common.Game.Graphics.Models;
+using Common.Game.Numbers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -55,7 +56,10 @@ namespace Sample1
             CreateModel(GetModel("ship"), new Vector3(0, 400, 0), Vector3.Zero, new Vector3(0.4f));
             CreateModel(GetModel("ground"), Vector3.Zero, Vector3.Zero, Vector3.One);
 
-            Camera = new ChaseCamera(new Vector3(0, 400, 1500), new Vector3(0, 200, 0), new Vector3(0, 0, 0), GraphicsDevice);
+            Camera = new ChaseCamera(new Vector3(0, 400, 1500), new Vector3(0, 200, 0), new Vector3(0, 0, 0), GraphicsDevice)
+                     {
+                         Springiness = new ClampFloat(.25f, 0, 1)
+                     };
         }
 
         protected override bool ShouldGameExit()
@@ -94,7 +98,7 @@ namespace Sample1
             if (KeyboardState.IsSpaceNotDown) return;
 
             // Determine what direction to move in
-            var rotation = Matrix.CreateFromYawPitchRoll(Models[0].Rotation.Y, Models[0].Rotation.X, Models[0].Rotation.Z);
+            var rotation = Models[0].CreateFromYawPitchRoll();
 
             // Move in the direction dictated by our rotation matrix
             Models[0].Position += Vector3.Transform(Vector3.Forward, rotation) * gameTime.GetTotalMilliseconds() * 4;

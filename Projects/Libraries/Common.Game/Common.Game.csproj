@@ -68,6 +68,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Graphics\BaseGraphic.cs" />
     <Compile Include="Graphics\Cameras\ArcBallCamera.cs" />
+    <Compile Include="Vectors\BaseVector3.cs" />
     <Compile Include="Graphics\Cameras\ChaseCamera.cs" />
     <Compile Include="Graphics\Cameras\FreeCamera.cs" />
     <Compile Include="Graphics\Cameras\TargetCamera.cs" />
@@ -80,6 +81,10 @@
     <Compile Include="Graphics\Cameras\Camera.cs" />
     <Compile Include="Numbers\ClampFloat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Vectors\Offset.cs" />
+    <Compile Include="Vectors\PositionOffset.cs" />
+    <Compile Include="Vectors\Rotation.cs" />
+    <Compile Include="Vectors\TargetOffset.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -31,6 +31,21 @@ namespace Common.Game.Graphics.Models
         public Vector3 Rotation { get; set; }
         public Vector3 Scale { get; set; }
 
+        public float RotationX
+        {
+            get { return Rotation.X; }
+        }
+
+        public float RotationY
+        {
+            get { return Rotation.Y; }
+        }
+
+        public float RotationZ
+        {
+            get { return Rotation.Z; }
+        }
+
         public BoundingSphere BoundingSphere
         {
             get
@@ -65,6 +80,11 @@ namespace Common.Game.Graphics.Models
             Transforms = new Matrix[_model.GetBoneCount()];
 
             _model.CopyAbsoluteBoneTransformsTo(Transforms);
+        }
+
+        public Matrix CreateFromYawPitchRoll()
+        {
+            return Matrix.CreateFromYawPitchRoll(RotationY, RotationX, RotationZ);
         }
     }
 }
